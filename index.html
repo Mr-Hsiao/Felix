@@ -1,0 +1,2270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Felix — 酒店数字化、PMS、软件开发与 AI">
+  <meta name="theme-color" content="#f6efe0">
+  <title>Felix — Hotel Digitalization · PMS · AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* === 暖米色基底 === */
+      --bg: #f6efe0;
+      --bg-deep: #ebe2cc;
+      --surface: #fffaf2;
+      --text: #1f1c16;
+      --text-2: #58544a;
+      --text-3: #8c8776;
+      --border: #e2d9c4;
+      --border-2: #ece4d2;
+
+      /* === 暖琥珀主色 === */
+      --accent: #b8642a;
+      --accent-mid: #d18340;
+      --accent-deep: #8c4818;
+      --accent-soft: #f6e3cb;
+
+      /* === 复古金（辅助色） === */
+      --gold: #b88656;
+      --gold-soft: rgba(184, 134, 86, .16);
+
+      --ink: #111318;
+      --ok: #2f9d6a;
+
+      /* === 阴影色（RGB 三元组，用于 rgba） === */
+      --shadow-accent: 184, 100, 42;
+      --shadow-ink: 31, 28, 22;
+
+      --max-width: 1160px;
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --shadow-sm: 0 8px 24px rgba(31, 28, 22, .05);
+      --shadow-md: 0 18px 50px rgba(31, 28, 22, .08);
+      --header-h: 72px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Plus Jakarta Sans", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: .35;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+    }
+
+    body > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    ::selection {
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    img, svg {
+      display: block;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-mid), var(--accent));
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-h);
+      background: rgba(244, 241, 234, .72);
+      border-bottom: 1px solid transparent;
+      backdrop-filter: blur(20px) saturate(1.2);
+      -webkit-backdrop-filter: blur(20px) saturate(1.2);
+      transition: background .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .header.scrolled {
+      background: rgba(255, 253, 248, .88);
+      border-bottom-color: rgba(22, 21, 19, .06);
+      box-shadow: 0 10px 30px rgba(22, 21, 19, .04);
+    }
+
+    .nav {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: #fff;
+      background: linear-gradient(145deg, #1b1a17 0%, #2c2a25 70%, #4b463c);
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 8px 16px rgba(22,21,19,.18);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-2);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 4px 0;
+      transition: color .2s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .22s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-cta {
+      height: 38px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--ink);
+      font-size: 12px;
+      font-weight: 600;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      background: #000;
+    }
+
+    .menu-button {
+      display: none;
+      width: 42px;
+      height: 42px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .menu-icon {
+      width: 18px;
+      height: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-icon span {
+      display: block;
+      width: 100%;
+      height: 1.6px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform .25s ease, opacity .2s ease;
+    }
+
+    .menu-button.open .menu-icon span:nth-child(1) {
+      transform: translateY(5.2px) rotate(45deg);
+    }
+
+    .menu-button.open .menu-icon span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-button.open .menu-icon span:nth-child(3) {
+      transform: translateY(-5.2px) rotate(-45deg);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      padding: 10px 24px 22px;
+      background: rgba(255, 253, 248, .96);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 14px 0;
+      color: var(--text-2);
+      font-size: 15px;
+      font-weight: 500;
+      border-bottom: 1px solid var(--border-2);
+    }
+
+    .mobile-menu a:last-child {
+      border-bottom: 0;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - var(--header-h));
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 48px 0 72px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(22,21,19,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22,21,19,.045) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 72%);
+      pointer-events: none;
+    }
+
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    .hero-orb-a {
+      width: 540px;
+      height: 540px;
+      right: -160px;
+      top: 42%;
+      transform: translateY(-50%);
+      background: radial-gradient(circle, rgba(47,86,240,.16), rgba(47,86,240,0) 68%);
+    }
+
+    .hero-orb-b {
+      width: 280px;
+      height: 280px;
+      left: 8%;
+      bottom: 6%;
+      background: radial-gradient(circle, rgba(184,149,108,.18), rgba(184,149,108,0) 70%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(300px, .88fr);
+      gap: 72px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+    }
+
+    .hero-eyebrow {
+      margin-bottom: 26px;
+    }
+
+    .hero-title {
+      margin-bottom: 24px;
+      font-size: clamp(42px, 6.4vw, 76px);
+      line-height: 1.12;
+      letter-spacing: -.04em;
+      font-weight: 800;
+    }
+
+    .hero-title .gray {
+      color: var(--text-3);
+    }
+
+    .hero-description {
+      max-width: 620px;
+      margin-bottom: 32px;
+      color: var(--text-2);
+      font-size: 17px;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+
+    .button {
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button-primary {
+      color: white;
+      background: linear-gradient(180deg, var(--accent-mid) 0%, var(--accent) 100%);
+      box-shadow:
+        0 10px 24px rgba(var(--shadow-accent), .28),
+        inset 0 1px 0 rgba(255, 255, 255, .28);
+    }
+
+    .button-primary:hover {
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-deep) 100%);
+      box-shadow:
+        0 14px 30px rgba(var(--shadow-accent), .38),
+        inset 0 1px 0 rgba(255, 255, 255, .28);
+    }
+
+    .button-secondary {
+      color: var(--text);
+      background: rgba(255,253,248,.72);
+      border: 1px solid var(--border);
+      box-shadow: 0 6px 16px rgba(22,21,19,.04);
+    }
+
+    .button-secondary:hover {
+      background: var(--surface);
+      border-color: #c8bea4;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,253,248,.7);
+      border: 1px solid var(--border);
+      color: var(--text-2);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .hero-chip span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .visual-glow {
+      position: absolute;
+      width: 78%;
+      height: 78%;
+      border-radius: 40px;
+      background: linear-gradient(135deg, rgba(47,86,240,.18), rgba(184,149,108,.16));
+      filter: blur(28px);
+    }
+
+    .visual-float {
+      position: absolute;
+      z-index: 3;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,253,248,.9);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-2);
+      backdrop-filter: blur(12px);
+      animation: floatY 5.5s ease-in-out infinite;
+    }
+
+    .visual-float-a {
+      top: 28px;
+      left: 0;
+    }
+
+    .visual-float-b {
+      right: 0;
+      bottom: 54px;
+      animation-delay: -1.8s;
+    }
+
+    .visual-card {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 400px);
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(255,253,248,.92), rgba(255,253,248,.78));
+      border: 1px solid rgba(22,21,19,.08);
+      border-radius: 28px;
+      box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,.8);
+      backdrop-filter: blur(18px);
+    }
+
+    .visual-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-2);
+    }
+
+    .visual-title {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .visual-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-2);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 0 rgba(47, 157, 106, .45);
+      animation: pulse 2.2s ease-out infinite;
+    }
+
+    .visual-content {
+      padding-top: 22px;
+    }
+
+    .visual-kicker {
+      color: var(--text-3);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .visual-big-number {
+      font-size: 40px;
+      line-height: 1;
+      letter-spacing: -.04em;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .visual-caption {
+      color: var(--text-3);
+      font-size: 12px;
+      margin-bottom: 26px;
+    }
+
+    .visual-bars {
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      height: 108px;
+      margin-bottom: 22px;
+      padding: 12px 12px 0;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(232,237,255,.7), rgba(255,253,248,.3));
+    }
+
+    .visual-bar {
+      flex: 1;
+      border-radius: 6px 6px 3px 3px;
+      background: linear-gradient(to top, #c9d6ff, #4d73ff);
+      transform-origin: bottom;
+      animation: growBar 1.1s cubic-bezier(.2,.7,.2,1) both;
+    }
+
+    .visual-bar:nth-child(1) { height: 35%; animation-delay: .05s; }
+    .visual-bar:nth-child(2) { height: 48%; animation-delay: .12s; }
+    .visual-bar:nth-child(3) { height: 42%; animation-delay: .18s; }
+    .visual-bar:nth-child(4) { height: 67%; animation-delay: .24s; }
+    .visual-bar:nth-child(5) { height: 57%; animation-delay: .3s; }
+    .visual-bar:nth-child(6) { height: 82%; animation-delay: .36s; }
+    .visual-bar:nth-child(7) { height: 94%; animation-delay: .42s; background: linear-gradient(to top, var(--accent-soft), var(--gold)); }
+
+    .visual-footer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .visual-metric {
+      padding: 12px 10px;
+      border: 1px solid var(--border-2);
+      border-radius: 12px;
+      background: rgba(255,255,255,.62);
+    }
+
+    .visual-metric-label {
+      color: var(--text-3);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      margin-bottom: 4px;
+    }
+
+    .visual-metric-value {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Sections */
+    .section {
+      padding: 108px 0;
+      border-top: 1px solid var(--border-2);
+    }
+
+    .section-header {
+      max-width: 700px;
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      margin-top: 14px;
+      margin-bottom: 10px;
+      font-size: clamp(28px, 4vw, 38px);
+      line-height: 1.22;
+      letter-spacing: -.03em;
+      font-weight: 800;
+    }
+
+    .section-description {
+      color: var(--text-3);
+      font-size: 15px;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-text {
+      color: var(--text-2);
+      font-size: 16px;
+      line-height: 1.95;
+    }
+
+    .about-text p {
+      margin-bottom: 18px;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0 8px 4px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 28px 28px;
+      border-left: 1px solid var(--border);
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: 7px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--bg);
+    }
+
+    .timeline-item.now::before {
+      background: var(--gold);
+      box-shadow: 0 0 0 4px var(--bg), 0 0 0 8px var(--gold-soft);
+    }
+
+    .timeline-year {
+      color: var(--text-3);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      margin-bottom: 4px;
+    }
+
+    .timeline-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .timeline-description {
+      color: var(--text-3);
+      font-size: 13px;
+    }
+
+    /* Focus */
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .focus-card {
+      position: relative;
+      min-height: 276px;
+      padding: 26px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 24px rgba(22,21,19,.03);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+
+    .focus-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-mid), var(--accent));
+      opacity: .85;
+    }
+
+    .focus-card:nth-child(2)::before {
+      background: linear-gradient(90deg, #1f3d2a, #6fbf8c);
+    }
+
+    .focus-card:nth-child(3)::before {
+      background: linear-gradient(90deg, var(--gold), #ead7b6);
+    }
+
+    .focus-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: 0 18px 50px rgba(var(--shadow-accent), .12);
+    }
+
+    .focus-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 52px;
+      border-radius: 14px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .focus-card:nth-child(2) .focus-icon {
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+    }
+
+    .focus-card:nth-child(3) .focus-icon {
+      background: var(--gold-soft);
+      color: var(--accent-deep);
+    }
+
+    .focus-number {
+      color: var(--text-3);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      margin-bottom: 12px;
+    }
+
+    .focus-title {
+      font-size: 22px;
+      letter-spacing: -.03em;
+      margin-bottom: 10px;
+    }
+
+    .focus-description {
+      max-width: 280px;
+      color: var(--text-3);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .focus-symbol {
+      position: absolute;
+      right: 18px;
+      bottom: 8px;
+      color: rgba(22,21,19,.04);
+      font-size: 84px;
+      font-weight: 800;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* Articles — 独立卡片化设计 */
+    .articles {
+      display: grid;
+      gap: 14px;
+      overflow: visible;
+      background: transparent;
+    }
+
+    .article {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr) auto;
+      gap: 22px;
+      align-items: center;
+      padding: 22px 26px;
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: 18px;
+      box-shadow:
+        0 1px 2px rgba(var(--shadow-ink), .04),
+        0 4px 18px rgba(var(--shadow-ink), .04);
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease,
+        background .25s ease;
+    }
+
+    .article:hover {
+      transform: translateY(-2px);
+      background: #ffffff;
+      border-color: var(--accent);
+      box-shadow:
+        0 1px 2px rgba(var(--shadow-ink), .05),
+        0 12px 32px rgba(var(--shadow-ink), .08);
+    }
+
+    .article-date {
+      color: var(--text-3);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .article-title {
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .article-arrow {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--text-3);
+      background: var(--border-2);
+      font-size: 16px;
+      transition: transform .2s ease, color .2s ease, background .2s ease;
+    }
+
+    .article:hover .article-arrow {
+      color: #fff;
+      background: var(--accent);
+      transform: translateX(3px);
+    }
+
+    .article-source {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 8px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      vertical-align: middle;
+    }
+
+    /* Articles empty state */
+    .article-empty {
+      padding: 28px 22px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-3);
+      font-size: 14px;
+      line-height: 1.75;
+      text-align: center;
+      background: var(--surface);
+    }
+
+    /* Wechat callout */
+    .wechat-callout {
+      display: grid;
+      grid-template-columns: 132px 1fr;
+      gap: 28px;
+      align-items: center;
+      margin-top: 22px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, var(--surface), rgba(255, 253, 248, .7));
+      box-shadow: 0 10px 24px rgba(22, 21, 19, .03);
+    }
+
+    .wechat-qr {
+      width: 132px;
+      height: 132px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid var(--border-2);
+      background: #fff;
+      padding: 6px;
+    }
+
+    .wechat-info h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -.02em;
+    }
+
+    .wechat-info p {
+      color: var(--text-2);
+      font-size: 14px;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .wechat-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .wechat-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--ink);
+      font-size: 12px;
+      font-weight: 600;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .wechat-cta:hover {
+      transform: translateY(-1px);
+      background: #000;
+    }
+
+    .wechat-meta {
+      color: var(--text-3);
+      font-size: 12px;
+    }
+
+    /* Project */
+    .project {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(240px, .85fr);
+      gap: 36px;
+      padding: 48px;
+      background:
+        radial-gradient(circle at 88% 12%, rgba(47,86,240,.32), transparent 28%),
+        radial-gradient(circle at 8% 90%, rgba(184,149,108,.18), transparent 26%),
+        linear-gradient(180deg, #171612, #11110e);
+      color: white;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 30px 70px rgba(17,17,14,.2);
+    }
+
+    .project-label {
+      color: #c4b395;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .project-name {
+      font-size: clamp(30px, 4vw, 40px);
+      letter-spacing: -.04em;
+      margin-bottom: 14px;
+    }
+
+    .project-description {
+      color: #c5c0b5;
+      font-size: 15px;
+      line-height: 1.9;
+      margin-bottom: 26px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .project-tag {
+      padding: 6px 10px;
+      color: #d8d3c8;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .project-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .flow-node {
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .flow-node strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 14px;
+    }
+
+    .flow-node span {
+      color: #a8a297;
+      font-size: 12px;
+    }
+
+    .flow-node.accent {
+      background: rgba(47,86,240,.16);
+      border-color: rgba(122,160,255,.28);
+    }
+
+    .flow-arrow {
+      color: #7d776c;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 36px 0 48px;
+      color: var(--text-3);
+      font-size: 12px;
+      border-top: 1px solid var(--border-2);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(47, 157, 106, .42); }
+      70% { box-shadow: 0 0 0 8px rgba(47, 157, 106, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(47, 157, 106, 0); }
+    }
+
+    @keyframes growBar {
+      from { transform: scaleY(0); opacity: .4; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 72px 0 88px;
+      }
+
+      .hero-visual {
+        min-height: 360px;
+      }
+
+      .about-grid,
+      .project {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .focus-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .nav-cta {
+        display: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      :root { --header-h: 62px; }
+
+      .container {
+        width: calc(100% - 32px);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .menu-button {
+        display: flex;
+      }
+
+      .hero {
+        padding: 56px 0 72px;
+      }
+
+      .hero::before {
+        background-size: 36px 36px;
+      }
+
+      .hero-title {
+        font-size: 40px;
+        letter-spacing: -.03em;
+      }
+
+      .hero-description {
+        font-size: 15px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: auto;
+      }
+
+      .visual-float {
+        display: none;
+      }
+
+      .visual-card {
+        width: 100%;
+      }
+
+      .section {
+        padding: 76px 0;
+      }
+
+      .about-grid {
+        gap: 48px;
+      }
+
+      .focus-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .focus-card {
+        min-height: 220px;
+      }
+
+      .focus-icon {
+        margin-bottom: 28px;
+      }
+
+      .article {
+        grid-template-columns: minmax(0, 1fr) auto;
+        padding: 18px 16px;
+      }
+
+      .article-date {
+        display: none;
+      }
+
+      .article-title {
+        font-size: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .article-source {
+        margin-left: 0;
+      }
+
+      .wechat-callout {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-items: center;
+        gap: 18px;
+        padding: 22px;
+      }
+
+      .wechat-qr {
+        width: 116px;
+        height: 116px;
+      }
+
+      .project {
+        padding: 28px 22px;
+        border-radius: 20px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .container {
+        width: calc(100% - 24px);
+      }
+
+      .hero-title {
+        font-size: 34px;
+      }
+
+      .visual-footer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal,
+      .visual-bar,
+      .visual-float,
+      .status-dot,
+      .button,
+      .focus-card,
+      .article-arrow {
+        animation: none !important;
+        transition: none !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* ============================================================
+       文章列表 — 摘要 / 标签 / 卡片可点击区域
+       ============================================================ */
+    .article {
+      cursor: pointer;
+      font: inherit;
+      color: inherit;
+      text-align: left;
+      width: 100%;
+      background: transparent;
+    }
+
+    .article-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .article-summary {
+      color: var(--text-3);
+      font-size: 13.5px;
+      line-height: 1.6;
+      font-weight: 400;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .article-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .article-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 1px 8px;
+      border-radius: 999px;
+    }
+
+    /* ============================================================
+       文章 Modal
+       ============================================================ */
+    .article-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .22s ease;
+    }
+    .article-modal.open {
+      pointer-events: auto;
+      opacity: 1;
+    }
+    .article-modal[hidden] {
+      display: none !important;
+    }
+
+    .article-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 18, 14, .55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .article-modal-panel {
+      position: relative;
+      width: min(720px, 100%);
+      max-height: calc(100vh - 48px);
+      background: var(--surface);
+      border-radius: 22px;
+      box-shadow:
+        0 30px 80px -20px rgba(31, 28, 22, .35),
+        0 0 0 1px rgba(var(--shadow-accent), .08);
+      display: flex;
+      flex-direction: column;
+      transform: translateY(18px) scale(.985);
+      transition: transform .22s ease;
+      overflow: hidden;
+    }
+    .article-modal.open .article-modal-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .article-modal-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 22px 26px 18px;
+      border-bottom: 1px solid var(--border-2);
+      background: var(--surface);
+    }
+
+    .article-modal-head-text {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .article-modal-meta {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-3);
+      margin-bottom: 4px;
+      letter-spacing: .02em;
+    }
+
+    .article-modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .article-modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .article-modal-wechat {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .15s ease, transform .15s ease;
+      white-space: nowrap;
+    }
+    .article-modal-wechat:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .article-modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text-3);
+      font-size: 16px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: background .15s ease, color .15s ease, border-color .15s ease;
+    }
+    .article-modal-close:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .article-modal-body {
+      padding: 22px 26px 30px;
+      overflow-y: auto;
+      color: var(--text-2);
+      line-height: 1.78;
+      font-size: 15px;
+    }
+
+    .article-modal-loading,
+    .article-modal-error {
+      text-align: center;
+      color: var(--text-3);
+      padding: 40px 16px;
+      font-size: 14px;
+    }
+    .article-modal-error strong {
+      display: block;
+      color: #b54545;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+    .article-modal-error code {
+      background: var(--bg);
+      padding: 1px 6px;
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12.5px;
+    }
+
+    /* Modal 内 Markdown 渲染样式 */
+    .article-modal-body h1 {
+      font-size: 22px;
+      font-weight: 800;
+      margin: 4px 0 16px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .article-modal-body h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 26px 0 12px;
+      color: var(--text);
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-2);
+    }
+    .article-modal-body h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 22px 0 8px;
+      color: var(--text);
+    }
+    .article-modal-body h4,
+    .article-modal-body h5,
+    .article-modal-body h6 {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 18px 0 6px;
+      color: var(--text);
+    }
+    .article-modal-body p {
+      margin: 12px 0;
+    }
+    .article-modal-body ul,
+    .article-modal-body ol {
+      margin: 12px 0;
+      padding-left: 24px;
+    }
+    .article-modal-body li {
+      margin: 4px 0;
+    }
+    .article-modal-body blockquote {
+      margin: 16px 0;
+      padding: 10px 16px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      border-radius: 0 10px 10px 0;
+      color: var(--text-2);
+      font-style: normal;
+    }
+    .article-modal-body code {
+      background: var(--bg);
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+      color: var(--accent-deep);
+    }
+    .article-modal-body pre {
+      background: #1f1d18;
+      color: #f0e9da;
+      padding: 14px 16px;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin: 14px 0;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .article-modal-body pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      font-size: inherit;
+    }
+    .article-modal-body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+    .article-modal-body img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 12px 0;
+    }
+    .article-modal-body hr {
+      border: 0;
+      border-top: 1px solid var(--border-2);
+      margin: 22px 0;
+    }
+    .article-modal-body strong { color: var(--text); }
+    .article-modal-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 14px;
+    }
+    .article-modal-body th,
+    .article-modal-body td {
+      border: 1px solid var(--border-2);
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .article-modal-body th {
+      background: var(--bg);
+      font-weight: 700;
+    }
+    .article-modal-body .md-fallback {
+      background: var(--bg);
+      color: var(--text-2);
+      padding: 16px;
+      border-radius: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+
+    /* 移动端 */
+    @media (max-width: 640px) {
+      .article-modal { padding: 0; }
+      .article-modal-panel {
+        width: 100%;
+        max-height: 100vh;
+        height: 100vh;
+        border-radius: 0;
+      }
+      .article-modal-header {
+        padding: 18px 18px 14px;
+      }
+      .article-modal-title {
+        font-size: 17px;
+      }
+      .article-modal-actions { gap: 6px; }
+      .article-modal-wechat {
+        padding: 7px 10px;
+        font-size: 11.5px;
+      }
+      .article-modal-close {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+      }
+      .article-modal-body {
+        padding: 18px 18px 28px;
+        font-size: 14.5px;
+      }
+      .article { grid-template-columns: 72px minmax(0, 1fr) auto; gap: 14px; padding: 18px 18px; }
+      .article-summary { -webkit-line-clamp: 2; line-clamp: 2; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="siteHeader">
+    <div class="container nav">
+      <a href="#" class="logo">
+        <span class="logo-mark">F</span>
+        <span>Felix</span>
+      </a>
+
+      <div class="nav-right">
+        <nav class="nav-links">
+          <a href="#about">关于</a>
+          <a href="#focus">方向</a>
+          <a href="#articles">文章</a>
+          <a href="#project">项目</a>
+        </nav>
+
+        <a href="#articles" class="nav-cta">阅读文章</a>
+
+        <button class="menu-button" id="menuButton" type="button" aria-label="打开菜单" aria-expanded="false">
+          <span class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#about">关于</a>
+      <a href="#focus">方向</a>
+      <a href="#articles">文章</a>
+      <a href="#project">项目</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-orb hero-orb-a"></div>
+      <div class="hero-orb hero-orb-b"></div>
+
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-copy reveal">
+            <div class="eyebrow hero-eyebrow">
+              <span class="eyebrow-dot"></span>
+              HOTEL DIGITALIZATION · PMS · AI
+            </div>
+
+            <h1 class="hero-title">
+              酒店数字化，
+              <br>
+              <span class="gray">以及我正在做的事情。</span>
+            </h1>
+
+            <p class="hero-description">
+              从酒店一线到 PMS 实施，再到产品设计和软件开发。
+              现在，我正在探索 AI 如何真正进入酒店业务，
+              让 PMS 从一个管理系统变成真正的业务基础设施。
+            </p>
+
+            <div class="hero-actions">
+              <a href="#articles" class="button button-primary">阅读我的文章</a>
+              <a href="#about" class="button button-secondary">了解更多</a>
+            </div>
+
+            <div class="hero-meta">
+              <div class="hero-chip"><span></span>酒店数字化</div>
+              <div class="hero-chip"><span></span>PMS 产品</div>
+              <div class="hero-chip"><span></span>AI Agent</div>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="visual-glow"></div>
+            <!-- <div class="visual-float visual-float-a">Occupancy · Live</div> -->
+            <!-- <div class="visual-float visual-float-b">API · Open</div> -->
+
+            <div class="visual-card">
+              <div class="visual-top">
+                <div class="visual-title">Hotel PMS</div>
+                <div class="visual-status">
+                  <span class="status-dot"></span>
+                  System Online
+                </div>
+              </div>
+
+              <div class="visual-content">
+                <div class="visual-kicker">Business layer</div>
+                <div class="visual-big-number">PMS</div>
+                <div class="visual-caption">Business · Data · AI</div>
+
+                <div class="visual-bars" aria-hidden="true">
+                  <span class="visual-bar"></span>
+                  <span class="visual-bar"></span>
+                  <span class="visual-bar"></span>
+                  <span class="visual-bar"></span>
+                  <span class="visual-bar"></span>
+                  <span class="visual-bar"></span>
+                  <span class="visual-bar"></span>
+                </div>
+
+                <div class="visual-footer">
+                  <div class="visual-metric">
+                    <div class="visual-metric-label">HOTEL</div>
+                    <div class="visual-metric-value">SaaS</div>
+                  </div>
+                  <div class="visual-metric">
+                    <div class="visual-metric-label">API</div>
+                    <div class="visual-metric-value">Open</div>
+                  </div>
+                  <div class="visual-metric">
+                    <div class="visual-metric-label">AI</div>
+                    <div class="visual-metric-value">Agent</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            ABOUT
+          </div>
+          <h2 class="section-title">一直在酒店和软件之间。</h2>
+          <p class="section-description">我的工作经历，也是一条从业务走向技术的路径。</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text reveal">
+            <p>我长期从事酒店信息化和 PMS 相关工作。</p>
+            <p>
+              从酒店网络和 IT 基础设施开始，后来参与大量 PMS 实施项目，
+              逐渐深入到酒店前台、客房、预订、账务以及酒店管理等真实业务场景。
+            </p>
+            <p>
+              后来开始参与 PMS 产品设计和软件开发，从“如何实施系统”逐渐转向思考
+              “什么样的系统才真正适合酒店”。
+            </p>
+            <p>现在关注的方向是酒店数字化、PMS 产品、软件工程，以及 AI。</p>
+          </div>
+
+          <div class="timeline reveal">
+            <div class="timeline-item">
+              <div class="timeline-year">01</div>
+              <div class="timeline-title">酒店 IT</div>
+              <div class="timeline-description">网络、基础设施和酒店信息化。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">02</div>
+              <div class="timeline-title">PMS 实施</div>
+              <div class="timeline-description">酒店 PMS 实施、项目交付和业务梳理。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">03</div>
+              <div class="timeline-title">产品与开发</div>
+              <div class="timeline-description">PMS 产品设计、架构和软件开发。</div>
+            </div>
+            <div class="timeline-item now">
+              <div class="timeline-year">NOW</div>
+              <div class="timeline-title">PMS × AI</div>
+              <div class="timeline-description">探索 AI 与酒店业务系统的结合。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="focus">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            FOCUS
+          </div>
+          <h2 class="section-title">我正在关注什么</h2>
+          <p class="section-description">技术只是手段，真正有意思的是业务问题。</p>
+        </div>
+
+        <div class="focus-grid">
+          <article class="focus-card reveal">
+            <div class="focus-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/>
+              </svg>
+            </div>
+            <div class="focus-number">01 / HOTEL</div>
+            <h3 class="focus-title">酒店数字化</h3>
+            <p class="focus-description">
+              酒店业务、信息化建设、系统实施，以及真实酒店场景中的数字化问题。
+            </p>
+            <div class="focus-symbol">H</div>
+          </article>
+
+          <article class="focus-card reveal">
+            <div class="focus-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="4" width="18" height="14" rx="2"/>
+                <path d="M8 21h8M12 18v3"/>
+              </svg>
+            </div>
+            <div class="focus-number">02 / PMS</div>
+            <h3 class="focus-title">PMS</h3>
+            <p class="focus-description">
+              PMS 产品设计、系统架构、前台业务以及酒店管理软件。
+            </p>
+            <div class="focus-symbol">P</div>
+          </article>
+
+          <article class="focus-card reveal">
+            <div class="focus-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z"/>
+                <path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8L19 14z"/>
+              </svg>
+            </div>
+            <div class="focus-number">03 / AI</div>
+            <h3 class="focus-title">AI</h3>
+            <p class="focus-description">
+              RAG、Agent、MCP，以及 AI 如何真正进入酒店业务流程。
+            </p>
+            <div class="focus-symbol">AI</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="articles">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            NOTES
+          </div>
+          <h2 class="section-title">最近写的一些东西</h2>
+          <p class="section-description">实践、经验，以及一些还没有答案的问题。文章首发在公众号，点击直达。</p>
+        </div>
+
+        <div class="articles reveal" id="wechatArticles">
+          <noscript>
+            <a class="article" href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">
+              <div class="article-date">2026.09</div>
+              <div class="article-title">PMS 卡顿，到底应该怎么取证？<span class="article-source">公众号</span></div>
+              <div class="article-arrow">→</div>
+            </a>
+            <a class="article" href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">
+              <div class="article-date">2026.09</div>
+              <div class="article-title">Flutter 做桌面 PMS 的一些实践<span class="article-source">公众号</span></div>
+              <div class="article-arrow">→</div>
+            </a>
+            <a class="article" href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">
+              <div class="article-date">2026.08</div>
+              <div class="article-title">AI 能不能真正操作 PMS？<span class="article-source">公众号</span></div>
+              <div class="article-arrow">→</div>
+            </a>
+            <a class="article" href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">
+              <div class="article-date">2026.08</div>
+              <div class="article-title">酒店数字化真正难的是什么？<span class="article-source">公众号</span></div>
+              <div class="article-arrow">→</div>
+            </a>
+          </noscript>
+        </div>
+
+        <div class="wechat-callout reveal">
+          <img class="wechat-qr" src="公众号二维码.jpg" alt="公众号二维码">
+          <div class="wechat-info">
+            <h3>扫码关注公众号</h3>
+            <p>所有文章都首发在公众号，这里只摘录了最近的几篇。扫码关注后可以第一时间收到更新。</p>
+            <div class="wechat-actions">
+              <a href="https://mp.weixin.qq.com/" target="_blank" rel="noopener" class="wechat-cta">前往公众号主页 →</a>
+              <span class="wechat-meta">用微信扫一扫即可关注</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="project">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            PROJECT
+          </div>
+          <h2 class="section-title">正在做的事情</h2>
+        </div>
+
+        <div class="project reveal">
+          <div class="project-content">
+            <div class="project-label">HOTEL MANAGEMENT PLATFORM</div>
+            <h3 class="project-name">智云 PMS</h3>
+            <p class="project-description">
+              面向酒店业务的新一代 PMS。从传统酒店管理系统出发，
+              探索 SaaS、开放 API、数据服务、AI Agent 与酒店业务系统之间的结合。
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Hotel PMS</span>
+              <span class="project-tag">SaaS</span>
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">Spring Boot</span>
+              <span class="project-tag">PostgreSQL</span>
+              <span class="project-tag">REST API</span>
+              <span class="project-tag">AI Agent</span>
+              <span class="project-tag">MCP</span>
+            </div>
+          </div>
+
+          <div class="project-panel" aria-hidden="true">
+            <div class="flow-node">
+              <strong>Hotel Ops</strong>
+              <span>前台 · 客房 · 预订</span>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node accent">
+              <strong>PMS Core</strong>
+              <span>SaaS · API · Data</span>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node">
+              <strong>AI Agent</strong>
+              <span>RAG · MCP · Workflow</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© 2026 Felix</div>
+      <div>Hotel Digitalization · PMS · AI</div>
+    </div>
+  </footer>
+
+  <!-- 文章阅读 Modal -->
+  <div class="article-modal" id="articleModal" hidden aria-hidden="true">
+    <div class="article-modal-backdrop" data-close-modal></div>
+    <div class="article-modal-panel" role="dialog" aria-modal="true" aria-labelledby="articleModalTitle">
+      <header class="article-modal-header">
+        <div class="article-modal-head-text">
+          <div class="article-modal-meta" id="articleModalMeta"></div>
+          <h2 class="article-modal-title" id="articleModalTitle"></h2>
+        </div>
+        <div class="article-modal-actions">
+          <a class="article-modal-wechat" id="articleModalWechat" href="#" target="_blank" rel="noopener">在公众号打开 ↗</a>
+          <button type="button" class="article-modal-close" data-close-modal aria-label="关闭文章">✕</button>
+        </div>
+      </header>
+      <div class="article-modal-body" id="articleModalBody">加载中…</div>
+    </div>
+  </div>
+
+  <!-- marked.js: 把 Markdown 渲染成 HTML（CDN，国内可访问） -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+
+  <script>
+    const header = document.getElementById("siteHeader");
+    const menuButton = document.getElementById("menuButton");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    function setMenu(open) {
+      mobileMenu.classList.toggle("active", open);
+      menuButton.classList.toggle("open", open);
+      menuButton.setAttribute("aria-expanded", open ? "true" : "false");
+      menuButton.setAttribute("aria-label", open ? "关闭菜单" : "打开菜单");
+    }
+
+    menuButton.addEventListener("click", function () {
+      setMenu(!mobileMenu.classList.contains("active"));
+    });
+
+    mobileMenu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        setMenu(false);
+      });
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") setMenu(false);
+    });
+
+    window.addEventListener("scroll", function () {
+      header.classList.toggle("scrolled", window.scrollY > 8);
+    }, { passive: true });
+
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll(".reveal").forEach(function (el) {
+      observer.observe(el);
+    });
+
+    /* ============================================================
+       公众号文章数据源（从 articles/index.json 动态加载）
+       ============================================================
+       使用方式：
+         1. 把 .md 文件放到 articles/ 目录
+         2. 把文章元数据追加到 articles/index.json
+         3. 刷新页面即可
+
+       无服务器时（直接 file:// 打开）：fetch 会失败，
+       自动回退到下方的 WECHAT_ARTICLES_FALLBACK 内嵌数据
+       ============================================================ */
+    var ARTICLES_DIR = "articles/";
+    var ARTICLES_INDEX = ARTICLES_DIR + "index.json";
+
+    // 文件协议或 fetch 失败时的兜底数据
+    var WECHAT_ARTICLES_FALLBACK = [
+      { date: "2026.09", title: "PMS 卡顿，到底应该怎么取证？" },
+      { date: "2026.09", title: "Flutter 做桌面 PMS 的一些实践" },
+      { date: "2026.08", title: "AI 能不能真正操作 PMS？" },
+      { date: "2026.08", title: "酒店数字化真正难的是什么？" }
+    ];
+
+    /* ---- HTML 转义 ---- */
+    function escHtml(str) {
+      return String(str).replace(/[&<>"']/g, function (c) {
+        return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[c];
+      });
+    }
+
+    /* ---- 日期格式化 ---- */
+    function fmtDate(raw) {
+      if (!raw) return "";
+      var d = new Date(raw);
+      if (!isNaN(d.getTime())) {
+        return d.getFullYear() + "." + String(d.getMonth() + 1).padStart(2, "0");
+      }
+      // 已经是 "YYYY.MM" 形式
+      var m = String(raw).match(/^(\d{4})[.\-/](\d{1,2})/);
+      if (m) return m[1] + "." + String(m[2]).padStart(2, "0");
+      return String(raw);
+    }
+
+    /* ---- 渲染列表 ---- */
+    function renderArticles(list) {
+      var c = document.getElementById("wechatArticles");
+      if (!c) return;
+      if (!Array.isArray(list) || list.length === 0) {
+        c.innerHTML =
+          '<div class="article-empty">公众号文章正在整理中，<br>扫码关注后第一时间收到更新 ↓</div>';
+        return;
+      }
+
+      c.innerHTML = list.map(function (item, i) {
+        var title = item.title || "";
+        var date = fmtDate(item.date);
+        var file = item.file || "";
+        var wechat = item.wechat || "#";
+        var summary = item.summary || "";
+        var tags = Array.isArray(item.tags) ? item.tags : [];
+
+        return (
+          '<button type="button" class="article" data-idx="' + i + '" data-file="' + escHtml(file) + '" data-wechat="' + escHtml(wechat) + '">' +
+            '<div class="article-date">' + escHtml(date) + '</div>' +
+            '<div class="article-content">' +
+              '<div class="article-title">' + escHtml(title) +
+                '<span class="article-source">公众号</span>' +
+              '</div>' +
+              (summary ? '<div class="article-summary">' + escHtml(summary) + '</div>' : '') +
+              (tags.length ? '<div class="article-tags">' + tags.map(function (t) {
+                return '<span class="article-tag">#' + escHtml(t) + '</span>';
+              }).join('') + '</div>' : '') +
+            '</div>' +
+            '<div class="article-arrow">→</div>' +
+          '</button>'
+        );
+      }).join("");
+
+      // 让新生成的 .article 也参与 reveal 动画
+      c.querySelectorAll(".article").forEach(function (el) {
+        el.classList.add("reveal");
+        observer.observe(el);
+      });
+
+      // 绑定点击 → 打开 modal
+      c.querySelectorAll(".article").forEach(function (el) {
+        el.addEventListener("click", function () {
+          var idx = parseInt(el.getAttribute("data-idx"), 10);
+          openArticle(list[idx]);
+        });
+      });
+    }
+
+    /* ---- Modal：打开文章 ---- */
+    var currentMd = "";
+    var mdCache = Object.create(null);
+
+    function openArticle(item) {
+      if (!item || !item.file) return;
+      var modal = document.getElementById("articleModal");
+      var metaEl = document.getElementById("articleModalMeta");
+      var titleEl = document.getElementById("articleModalTitle");
+      var bodyEl = document.getElementById("articleModalBody");
+      var wechatEl = document.getElementById("articleModalWechat");
+      if (!modal) return;
+
+      // 头部信息
+      metaEl.textContent = fmtDate(item.date) + " · 公众号";
+      titleEl.textContent = item.title || "";
+      wechatEl.href = item.wechat || "#";
+
+      // 渲染正文
+      bodyEl.innerHTML = '<div class="article-modal-loading">加载中…</div>';
+      modal.hidden = false;
+      document.documentElement.style.overflow = "hidden";
+      // 触发动画
+      requestAnimationFrame(function () {
+        modal.classList.add("open");
+      });
+
+      var fileUrl = ARTICLES_DIR + item.file;
+
+      // 优先用缓存
+      if (mdCache[item.file]) {
+        bodyEl.innerHTML = mdCache[item.file];
+        bodyEl.scrollTop = 0;
+        return;
+      }
+
+      fetch(fileUrl)
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.text();
+        })
+        .then(function (md) {
+          currentMd = md;
+          var rendered = renderMarkdown(md);
+          mdCache[item.file] = rendered;
+          bodyEl.innerHTML = rendered;
+          bodyEl.scrollTop = 0;
+        })
+        .catch(function (e) {
+          bodyEl.innerHTML =
+            '<div class="article-modal-error">' +
+              '<strong>文章加载失败</strong><br>' +
+              escHtml(String(e.message || e)) +
+              '<br><br><small>提示：直接双击打开 HTML 时浏览器不允许 fetch 本地文件，<br>需要通过本地服务器访问（<code>python -m http.server</code>）。</small>' +
+            '</div>';
+        });
+    }
+
+    function closeArticle() {
+      var modal = document.getElementById("articleModal");
+      if (!modal) return;
+      modal.classList.remove("open");
+      document.documentElement.style.overflow = "";
+      // 等动画结束后再 hidden
+      setTimeout(function () { modal.hidden = true; }, 220);
+    }
+
+    /* ---- Markdown 渲染（依赖 marked.js；缺失时降级为 <pre>） ---- */
+    function renderMarkdown(md) {
+      if (typeof marked !== "undefined" && marked.parse) {
+        try {
+          return marked.parse(md, { gfm: true, breaks: false });
+        } catch (e) {
+          return "<pre>" + escHtml(md) + "</pre>";
+        }
+      }
+      // 没有 marked.js 的降级方案
+      return "<pre class=\"md-fallback\">" + escHtml(md) + "</pre>";
+    }
+
+    /* ---- Modal 全局事件 ---- */
+    document.addEventListener("click", function (e) {
+      if (e.target.matches("[data-close-modal]")) closeArticle();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeArticle();
+    });
+
+    /* ---- 加载入口 ---- */
+    fetch(ARTICLES_INDEX)
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        if (!Array.isArray(data)) throw new Error("index.json 格式错误");
+        renderArticles(data);
+      })
+      .catch(function () {
+        // file:// 或网络失败：回退到内嵌占位
+        renderArticles(WECHAT_ARTICLES_FALLBACK.map(function (a) {
+          return { title: a.title, date: a.date };
+        }));
+      });
+  </script>
+</body>
+</html>
