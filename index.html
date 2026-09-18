@@ -1235,15 +1235,27 @@
       }
 
       .article {
-        grid-template-columns: minmax(0, 1fr) auto;
-        padding: 18px 16px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+        padding: 18px 18px;
+        border-radius: 16px;
       }
 
       .article-date {
-        display: none;
+        font-size: 11px;
+      }
+
+      .article-arrow {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
       }
 
       .article-title {
+        padding-right: 0;
         font-size: 15px;
         display: flex;
         flex-wrap: wrap;
@@ -1251,8 +1263,13 @@
         gap: 6px;
       }
 
-      .article-source {
-        margin-left: 0;
+      .article-summary {
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .article-tags {
+        padding-right: 40px;
       }
 
       .wechat-callout {
@@ -1659,7 +1676,6 @@
         padding: 18px 18px 28px;
         font-size: 14.5px;
       }
-      .article { grid-template-columns: 72px minmax(0, 1fr) auto; gap: 14px; padding: 18px 18px; }
       .article-summary { -webkit-line-clamp: 2; line-clamp: 2; }
     }
   </style>
