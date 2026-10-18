@@ -1006,6 +1006,11 @@
     }
 
     /* Project */
+    .project-list {
+      display: grid;
+      gap: 24px;
+    }
+
     .project {
       position: relative;
       overflow: hidden;
@@ -1973,40 +1978,81 @@
           <h2 class="section-title">正在做的事情</h2>
         </div>
 
-        <div class="project reveal">
-          <div class="project-content">
-            <div class="project-label">HOTEL MANAGEMENT PLATFORM</div>
-            <h3 class="project-name">智云 PMS</h3>
-            <p class="project-description">
-              面向酒店业务的新一代 PMS。从传统酒店管理系统出发，
-              探索 SaaS、开放 API、数据服务、AI Agent 与酒店业务系统之间的结合。
-            </p>
-            <div class="project-tags">
-              <span class="project-tag">Hotel PMS</span>
-              <span class="project-tag">SaaS</span>
-              <span class="project-tag">Flutter</span>
-              <span class="project-tag">Spring Boot</span>
-              <span class="project-tag">PostgreSQL</span>
-              <span class="project-tag">REST API</span>
-              <span class="project-tag">AI Agent</span>
-              <span class="project-tag">MCP</span>
+        <div class="project-list">
+          <div class="project reveal">
+            <div class="project-content">
+              <div class="project-label">HOTEL MANAGEMENT PLATFORM</div>
+              <h3 class="project-name">智云 PMS</h3>
+              <p class="project-description">
+                面向酒店业务的新一代 PMS。从传统酒店管理系统出发，
+                探索 SaaS、开放 API、数据服务、AI Agent 与酒店业务系统之间的结合。
+              </p>
+              <div class="project-tags">
+                <span class="project-tag">Hotel PMS</span>
+                <span class="project-tag">SaaS</span>
+                <span class="project-tag">Flutter</span>
+                <span class="project-tag">Spring Boot</span>
+                <span class="project-tag">PostgreSQL</span>
+                <span class="project-tag">REST API</span>
+                <span class="project-tag">AI Agent</span>
+                <span class="project-tag">MCP</span>
+              </div>
+            </div>
+
+            <div class="project-panel" aria-hidden="true">
+              <div class="flow-node">
+                <strong>Hotel Ops</strong>
+                <span>前台 · 客房 · 预订</span>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-node accent">
+                <strong>PMS Core</strong>
+                <span>SaaS · API · Data</span>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-node">
+                <strong>AI Agent</strong>
+                <span>RAG · MCP · Workflow</span>
+              </div>
             </div>
           </div>
 
-          <div class="project-panel" aria-hidden="true">
-            <div class="flow-node">
-              <strong>Hotel Ops</strong>
-              <span>前台 · 客房 · 预订</span>
+          <div class="project reveal">
+            <div class="project-content">
+              <div class="project-label">HOTEL COUPON PLATFORM</div>
+              <h3 class="project-name">酒店通用卡券中台</h3>
+              <p class="project-description">
+                把房券 / 早餐券 / 房型升级券 / 代金券，
+                从「发券 → 客人自助领券 → 前台核销 → 财务对账」全流程数字化。
+                管理后台、核销 App、客人领券 H5 三端共享同一套数据，全链路可对账。
+              </p>
+              <div class="project-tags">
+                <span class="project-tag">卡券中台</span>
+                <span class="project-tag">Spring Boot</span>
+                <span class="project-tag">PostgreSQL</span>
+                <span class="project-tag">Android</span>
+                <span class="project-tag">NFC 核销</span>
+                <span class="project-tag">H5 领券</span>
+                <span class="project-tag">REST API</span>
+                <span class="project-tag">报表对账</span>
+              </div>
             </div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-node accent">
-              <strong>PMS Core</strong>
-              <span>SaaS · API · Data</span>
-            </div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-node">
-              <strong>AI Agent</strong>
-              <span>RAG · MCP · Workflow</span>
+
+            <div class="project-panel" aria-hidden="true">
+              <div class="flow-node">
+                <strong>管理后台</strong>
+                <span>发券 · 模板 · Excel 导入</span>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-node accent">
+                <strong>客人领券 H5</strong>
+                <span>房号 + 手机后 4 位自助领</span>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-node">
+                <strong>核销 App · 好运来</strong>
+                <span>扫码 · NFC 刷卡 · 对账</span>
+              </div>
             </div>
           </div>
         </div>
