@@ -1065,6 +1065,102 @@
       font-weight: 600;
     }
 
+    /* 项目卡片里的「进入系统」链接：低调但可点，和标签同一行视觉重量 */
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      color: #f3ece0;
+      background: rgba(255,255,255,.04);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .2px;
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+
+    .project-link:hover {
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.32);
+      transform: translateY(-1px);
+    }
+
+    .project-link .arrow {
+      transition: transform .2s ease;
+    }
+
+    .project-link:hover .arrow {
+      transform: translateX(3px);
+    }
+
+    /* 页脚的系统入口：比正文更淡，但仍是可点的链接 */
+    .footer-link {
+      color: var(--text-2);
+      border-bottom: 1px solid transparent;
+      transition: color .2s ease, border-color .2s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .footer-sep {
+      margin: 0 8px;
+      opacity: .5;
+    }
+
+    /* 免责声明：法律口径，比正文淡一档，不抢视觉。
+       ⚠ 这里用 margin-left 而不是让两段各自成列 —— 用户要求「© 2026 Felix 后面直接跟上」，
+         要的是**一句话连读**的观感，不是左右分栏。 */
+    .footer-disclaimer {
+      color: var(--text-3);
+      font-size: 12px;
+      /* ⚠ 小一些：文本里已经有一个真实空格（&nbsp;），
+         这里只补一点点视觉间距，避免「Felix  仅个人…」看着空隙过大。
+         用真实空格而不是纯 CSS 间距，是为了**复制/朗读**时不粘成一串。 */
+      margin-left: 2px;
+    }
+
+    /* 整行不换行：手机上也保持一行（用户明确要求） */
+    .footer-line {
+      white-space: nowrap;
+    }
+
+    @media (max-width: 700px) {
+      /* 窄屏：**不拆行**，只把字号收小，保证一行放得下。
+         360px 宽时整句约 270px，容器可用 328px，留有余量。 */
+      .footer-inner {
+        justify-content: center;
+      }
+      .footer-line {
+        font-size: 11px;
+      }
+      .footer-disclaimer {
+        font-size: 11px;
+        margin-left: 4px;
+      }
+    }
+
+    /* 备案号单独一行、居中、比正文更淡：够醒目但不抢视觉 */
+    .footer-beian {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    .footer-beian .footer-link {
+      color: var(--text-3);
+    }
+
+    .footer-beian .footer-link:hover {
+      color: var(--accent);
+    }
+
     .project-panel {
       display: flex;
       flex-direction: column;
@@ -1295,9 +1391,11 @@
         border-radius: 20px;
       }
 
+      /* 页脚现在只有「© 2026 Felix 仅个人技术项目演示…」这一行文字，
+         窄屏**不再拆行**（用户要求一行），只做居中。 */
       .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
+        justify-content: center;
+        align-items: center;
       }
     }
 
@@ -1982,7 +2080,7 @@
           <div class="project reveal">
             <div class="project-content">
               <div class="project-label">HOTEL MANAGEMENT PLATFORM</div>
-              <h3 class="project-name">智云 PMS</h3>
+              <h3 class="project-name">PMS</h3>
               <p class="project-description">
                 面向酒店业务的新一代 PMS。从传统酒店管理系统出发，
                 探索 SaaS、开放 API、数据服务、AI Agent 与酒店业务系统之间的结合。
@@ -2036,6 +2134,11 @@
                 <span class="project-tag">REST API</span>
                 <span class="project-tag">报表对账</span>
               </div>
+
+              <a class="project-link" href="/admin/" target="_blank" rel="noopener">
+                进入系统
+                <span class="arrow">→</span>
+              </a>
             </div>
 
             <div class="project-panel" aria-hidden="true">
@@ -2103,9 +2206,34 @@
   </main>
 
   <footer class="footer">
+    <!--
+      页脚口径（用户给定）：
+        左下      © 2026 Felix
+        右下      仅个人技术项目演示，不提供商用服务
+      用户明确要求「右下角不要卡券系统」——后台入口保留在「项目」区块的
+      「进入系统」按钮上，页脚不再重复放链接。
+      免责声明单独成句、颜色更淡：它是法律口径，不需要抢视觉。
+    -->
     <div class="container footer-inner">
-      <div>© 2026 Felix</div>
-      <div>Hotel Digitalization · PMS · AI</div>
+      <!--
+        用户要求：「© 2026 Felix 后面直接跟上 仅个人技术项目演示，不提供商用服务」，
+        且**手机上也显示一行**（不要拆成两行）。
+        所以两段文字放在同一个 flex 行里、`white-space: nowrap` 禁止换行，
+        窄屏时靠 font-size 缩小来适配（360px 宽实测能放下）。
+      -->
+      <div class="footer-line">
+        <span>© 2026 Felix&nbsp;</span><span class="footer-disclaimer">仅个人技术项目演示，不提供商用服务</span>
+      </div>
+    </div>
+    <!--
+      备案信息：法规要求（境内提供服务的网站必须在底部展示 ICP 备案号，
+      并链接到工信部查询站）。缺少这条会被判定「网站不合规」。
+      ⚠ 备案号必须与工信部备案信息完全一致，不能自己编。
+    -->
+    <div class="container footer-beian">
+      <a class="footer-link" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">
+        京ICP备2026071282号-1
+      </a>
     </div>
   </footer>
 
