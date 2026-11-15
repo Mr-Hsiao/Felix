@@ -1,0 +1,72 @@
+{
+   "checksum": "770e290c9b1eb2605c250bbb23b10592",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13374839860972985",
+            "date_last_used": "0",
+            "guid": "9ad9e9df-1144-4f9d-af35-200f26bd239b",
+            "id": "7",
+            "name": "地税办税中心",
+            "show_icon": false,
+            "source": "import_fre",
+            "type": "url",
+            "url": "http://bs.hebds.gov.cn/login/login.jsp",
+            "visit_count": 0
+         }, {
+            "date_added": "13374839860972985",
+            "date_last_used": "0",
+            "guid": "1f5b38ec-fd54-4b4b-80d8-c8c505b7e644",
+            "id": "8",
+            "name": "河北CA",
+            "show_icon": false,
+            "source": "import_fre",
+            "type": "url",
+            "url": "http://www.hebca.com/",
+            "visit_count": 0
+         } ],
+         "date_added": "13439187035249624",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "收藏夹栏",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13439187035249624",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "其他收藏夹",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13439187035249624",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "移动收藏夹",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "workspaces_v2": {
+         "children": [  ],
+         "date_added": "13439187035249624",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "75aa6670-344f-549d-b742-660f029506ab",
+         "id": "5",
+         "name": "工作区",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}

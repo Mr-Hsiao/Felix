@@ -1,0 +1,5 @@
+2026/11/15-11:40:55.536 8e60 Creating DB D:\HotelCoupon\html\_audit\edge-profile-m-9662\Default\EdgeCoupons/coupons_data.db since it was missing.
+2026/11/15-11:40:55.555 8e60 Reusing MANIFEST D:\HotelCoupon\html\_audit\edge-profile-m-9662\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/11/15-11:40:55.679 62e0 Level-0 table #5: started
+2026/11/15-11:40:55.682 62e0 Level-0 table #5: 683273 bytes OK
+2026/11/15-11:40:55.684 62e0 Delete type=0 #3

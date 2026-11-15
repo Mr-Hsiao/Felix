@@ -1,0 +1,34 @@
+[
+  {
+    "file": "pms-forensics.md",
+    "title": "PMS 卡顿，到底应该怎么取证？",
+    "date": "2026-09-15",
+    "tags": ["PMS", "性能", "取证"],
+    "wechat": "https://mp.weixin.qq.com/",
+    "summary": "客户反馈 PMS 操作卡顿，但开发复现不出。用 30 分钟的现场录像 + Chrome Trace 还原真实链路，把锅从数据库甩到了前端。"
+  },
+  {
+    "file": "flutter-pms-practice.md",
+    "title": "Flutter 做桌面 PMS 的一些实践",
+    "date": "2026-09-02",
+    "tags": ["Flutter", "桌面端"],
+    "wechat": "https://mp.weixin.qq.com/",
+    "summary": "从 Electron 切到 Flutter 桌面端一年后，把坑整理成清单：窗口句柄、键盘焦点、输入法位置、HiDPI 适配。"
+  },
+  {
+    "file": "ai-operate-pms.md",
+    "title": "AI 能不能真正操作 PMS？",
+    "date": "2026-08-20",
+    "tags": ["AI", "Agent"],
+    "wechat": "https://mp.weixin.qq.com/",
+    "summary": "把 AI Agent 丢进 PMS 试了一周，它能下单、能改价，但有一个环节永远卡住——审批流。原因不是技术。"
+  },
+  {
+    "file": "hotel-digitalization.md",
+    "title": "酒店数字化真正难的是什么？",
+    "date": "2026-08-05",
+    "tags": ["行业", "数字化"],
+    "wechat": "https://mp.weixin.qq.com/",
+    "summary": "做了 8 年酒店数字化，最大的难不是技术也不是钱，而是两个利益主体的 SOP 怎么在系统里共存。"
+  }
+]

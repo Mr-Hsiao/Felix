@@ -1,0 +1,252 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "F Felix" [ref=e4] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e5]: F
+        - generic [ref=e6]: Felix
+      - generic [ref=e7]:
+        - navigation [ref=e8]:
+          - link "关于" [ref=e9] [cursor=pointer]:
+            - /url: "#about"
+          - link "方向" [ref=e10] [cursor=pointer]:
+            - /url: "#focus"
+          - link "文章" [ref=e11] [cursor=pointer]:
+            - /url: "#articles"
+          - link "项目" [ref=e12] [cursor=pointer]:
+            - /url: "#project"
+        - link "阅读文章" [ref=e13] [cursor=pointer]:
+          - /url: "#articles"
+  - main [ref=e14]:
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e19]: HOTEL DIGITALIZATION · PMS · AI
+        - heading "酒店数字化， 以及我正在做的事情。" [level=1] [ref=e21]
+        - paragraph [ref=e22]: 从酒店一线到 PMS 实施，再到产品设计和软件开发。 现在，我正在探索 AI 如何真正进入酒店业务， 让 PMS 从一个管理系统变成真正的业务基础设施。
+        - generic [ref=e23]:
+          - link "阅读我的文章" [ref=e24] [cursor=pointer]:
+            - /url: "#articles"
+          - link "了解更多" [ref=e25] [cursor=pointer]:
+            - /url: "#about"
+        - generic [ref=e26]:
+          - generic [ref=e27]: 酒店数字化
+          - generic [ref=e29]: PMS 产品
+          - generic [ref=e31]: AI Agent
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e37]: Hotel PMS
+          - generic [ref=e38]: System Online
+        - generic [ref=e40]:
+          - generic [ref=e41]: Business layer
+          - generic [ref=e42]: PMS
+          - generic [ref=e43]: Business · Data · AI
+          - generic [ref=e52]:
+            - generic [ref=e53]:
+              - generic [ref=e54]: HOTEL
+              - generic [ref=e55]: SaaS
+            - generic [ref=e56]:
+              - generic [ref=e57]: API
+              - generic [ref=e58]: Open
+            - generic [ref=e59]:
+              - generic [ref=e60]: AI
+              - generic [ref=e61]: Agent
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e65]: ABOUT
+        - heading "一直在酒店和软件之间。" [level=2] [ref=e67]
+        - paragraph [ref=e68]: 我的工作经历，也是一条从业务走向技术的路径。
+      - generic [ref=e69]:
+        - generic [ref=e70]:
+          - paragraph [ref=e71]: 我长期从事酒店信息化和 PMS 相关工作。
+          - paragraph [ref=e72]: 从酒店网络与 IT 基础设施做起，之后参与大量 PMS 实施项目， 走进了前台、客房、预订、账务这些真实的酒店业务场景。
+          - paragraph [ref=e73]: 再往后开始参与 PMS 产品设计与开发，关注点从“怎么把系统实施落地”， 慢慢变成“什么样的系统才真正适合酒店”。
+          - paragraph [ref=e74]: 现在关注酒店数字化、PMS 产品、软件工程，以及 AI 在业务里的落地。
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - generic [ref=e77]: "01"
+            - generic [ref=e78]: 酒店 IT
+            - generic [ref=e79]: 网络、基础设施和酒店信息化。
+          - generic [ref=e80]:
+            - generic [ref=e81]: "02"
+            - generic [ref=e82]: PMS 实施
+            - generic [ref=e83]: 酒店 PMS 实施、项目交付和业务梳理。
+          - generic [ref=e84]:
+            - generic [ref=e85]: "03"
+            - generic [ref=e86]: 产品与开发
+            - generic [ref=e87]: PMS 产品设计、架构和软件开发。
+          - generic [ref=e88]:
+            - generic [ref=e89]: NOW
+            - generic [ref=e90]: PMS × AI
+            - generic [ref=e91]: 探索 AI 与酒店业务系统的结合。
+    - generic [ref=e93]:
+      - generic [ref=e94]:
+        - generic [ref=e95]: FOCUS
+        - heading "我正在关注什么" [level=2] [ref=e97]
+        - paragraph [ref=e98]: 技术只是手段，真正有意思的是业务问题。
+      - generic [ref=e99]:
+        - article [ref=e100]:
+          - generic [ref=e104]: 01 / HOTEL
+          - heading "酒店数字化" [level=3] [ref=e105]
+          - paragraph [ref=e106]: 酒店业务、信息化建设、系统实施，以及真实酒店场景中的数字化问题。
+          - generic: H
+        - article [ref=e107]:
+          - generic [ref=e112]: 02 / PMS
+          - heading "PMS" [level=3] [ref=e113]
+          - paragraph [ref=e114]: PMS 产品设计、系统架构、前台业务以及酒店管理软件。
+          - generic: P
+        - article [ref=e115]:
+          - generic [ref=e120]: 03 / AI
+          - heading "AI" [level=3] [ref=e121]
+          - paragraph [ref=e122]: RAG、Agent、MCP，以及 AI 如何真正进入酒店业务流程。
+          - generic: AI
+    - generic [ref=e124]:
+      - generic [ref=e125]:
+        - generic [ref=e126]: NOTES
+        - heading "最近写的一些东西" [level=2] [ref=e128]
+        - paragraph [ref=e129]: 实践、经验，以及一些还没有答案的问题。文章首发在公众号，点击直达。
+      - generic [ref=e130]:
+        - 'button "2026.09 PMS 卡顿，到底应该怎么取证？ 公众号 客户反馈 PMS 操作卡顿，但开发复现不出。用 30 分钟的现场录像 + Chrome Trace 还原真实链路，把锅从数据库甩到了前端。 #PMS #性能 #取证 →" [ref=e131] [cursor=pointer]':
+          - generic [ref=e132]: "2026.09"
+          - generic [ref=e133]:
+            - generic [ref=e134]:
+              - text: PMS 卡顿，到底应该怎么取证？
+              - generic [ref=e135]: 公众号
+            - generic [ref=e136]: 客户反馈 PMS 操作卡顿，但开发复现不出。用 30 分钟的现场录像 + Chrome Trace 还原真实链路，把锅从数据库甩到了前端。
+            - generic [ref=e137]:
+              - generic [ref=e138]: "#PMS"
+              - generic [ref=e139]: "#性能"
+              - generic [ref=e140]: "#取证"
+          - generic [ref=e141]: →
+        - 'button "2026.09 Flutter 做桌面 PMS 的一些实践 公众号 从 Electron 切到 Flutter 桌面端一年后，把坑整理成清单：窗口句柄、键盘焦点、输入法位置、HiDPI 适配。 #Flutter #桌面端 →" [ref=e142] [cursor=pointer]':
+          - generic [ref=e143]: "2026.09"
+          - generic [ref=e144]:
+            - generic [ref=e145]:
+              - text: Flutter 做桌面 PMS 的一些实践
+              - generic [ref=e146]: 公众号
+            - generic [ref=e147]: 从 Electron 切到 Flutter 桌面端一年后，把坑整理成清单：窗口句柄、键盘焦点、输入法位置、HiDPI 适配。
+            - generic [ref=e148]:
+              - generic [ref=e149]: "#Flutter"
+              - generic [ref=e150]: "#桌面端"
+          - generic [ref=e151]: →
+        - 'button "2026.08 AI 能不能真正操作 PMS？ 公众号 把 AI Agent 丢进 PMS 试了一周，它能下单、能改价，但有一个环节永远卡住——审批流。原因不是技术。 #AI #Agent →" [ref=e152] [cursor=pointer]':
+          - generic [ref=e153]: "2026.08"
+          - generic [ref=e154]:
+            - generic [ref=e155]:
+              - text: AI 能不能真正操作 PMS？
+              - generic [ref=e156]: 公众号
+            - generic [ref=e157]: 把 AI Agent 丢进 PMS 试了一周，它能下单、能改价，但有一个环节永远卡住——审批流。原因不是技术。
+            - generic [ref=e158]:
+              - generic [ref=e159]: "#AI"
+              - generic [ref=e160]: "#Agent"
+          - generic [ref=e161]: →
+        - 'button "2026.08 酒店数字化真正难的是什么？ 公众号 做了 8 年酒店数字化，最大的难不是技术也不是钱，而是两个利益主体的 SOP 怎么在系统里共存。 #行业 #数字化 →" [ref=e162] [cursor=pointer]':
+          - generic [ref=e163]: "2026.08"
+          - generic [ref=e164]:
+            - generic [ref=e165]:
+              - text: 酒店数字化真正难的是什么？
+              - generic [ref=e166]: 公众号
+            - generic [ref=e167]: 做了 8 年酒店数字化，最大的难不是技术也不是钱，而是两个利益主体的 SOP 怎么在系统里共存。
+            - generic [ref=e168]:
+              - generic [ref=e169]: "#行业"
+              - generic [ref=e170]: "#数字化"
+          - generic [ref=e171]: →
+      - generic [ref=e172]:
+        - img "公众号二维码" [ref=e173]
+        - generic [ref=e174]:
+          - heading "扫码关注公众号" [level=3] [ref=e175]
+          - paragraph [ref=e176]: 所有文章都首发在公众号，这里只摘录了最近的几篇。扫码关注后可以第一时间收到更新。
+          - generic [ref=e177]:
+            - link "前往公众号主页 →" [ref=e178] [cursor=pointer]:
+              - /url: https://mp.weixin.qq.com/
+            - generic [ref=e179]: 用微信扫一扫即可关注
+    - generic [ref=e181]:
+      - generic [ref=e182]:
+        - generic [ref=e183]: PROJECT
+        - heading "正在做的事情" [level=2] [ref=e185]
+      - generic [ref=e186]:
+        - generic [ref=e187]:
+          - generic [ref=e188]:
+            - generic [ref=e189]: HOTEL MANAGEMENT PLATFORM
+            - heading "PMS" [level=3] [ref=e190]
+            - paragraph [ref=e191]: 面向酒店业务的新一代 PMS。从传统酒店管理系统出发， 探索 SaaS、开放 API、数据服务、AI Agent 与酒店业务系统之间的结合。
+            - generic [ref=e192]:
+              - generic [ref=e193]: Hotel PMS
+              - generic [ref=e194]: SaaS
+              - generic [ref=e195]: Flutter
+              - generic [ref=e196]: Spring Boot
+              - generic [ref=e197]: PostgreSQL
+              - generic [ref=e198]: REST API
+              - generic [ref=e199]: AI Agent
+              - generic [ref=e200]: MCP
+          - generic [aria-hidden] [ref=e201]:
+            - generic [ref=e202]:
+              - strong [ref=e203]: Hotel Ops
+              - text: 前台 · 客房 · 预订
+            - generic [ref=e204]: ↓
+            - generic [ref=e205]:
+              - strong [ref=e206]: PMS Core
+              - text: SaaS · API · Data
+            - generic [ref=e207]: ↓
+            - generic [ref=e208]:
+              - strong [ref=e209]: AI Agent
+              - text: RAG · MCP · Workflow
+        - generic [ref=e210]:
+          - generic [ref=e211]:
+            - generic [ref=e212]: HOTEL COUPON PLATFORM
+            - heading "好运来卡券管理系统" [level=3] [ref=e213]
+            - paragraph [ref=e214]: 把房券 / 早餐券 / 房型升级券 / 代金券， 从「发券 → 客人自助领券 → 前台核销 → 财务对账」全流程数字化。 管理后台、核销 App、客人领券 H5 三端共享同一套数据，全链路可对账。
+            - generic [ref=e215]:
+              - generic [ref=e216]: 卡券中台
+              - generic [ref=e217]: Spring Boot
+              - generic [ref=e218]: PostgreSQL
+              - generic [ref=e219]: Android
+              - generic [ref=e220]: NFC 核销
+              - generic [ref=e221]: H5 领券
+              - generic [ref=e222]: REST API
+              - generic [ref=e223]: 报表对账
+            - link "进入系统 →" [ref=e224] [cursor=pointer]:
+              - /url: /admin/
+              - text: 进入系统
+              - generic [ref=e225]: →
+          - generic [aria-hidden] [ref=e226]:
+            - generic [ref=e227]:
+              - strong [ref=e228]: 管理后台
+              - text: 发券 · 模板 · Excel 导入
+            - generic [ref=e229]: ↓
+            - generic [ref=e230]:
+              - strong [ref=e231]: 客人领券 H5
+              - text: 房号 + 手机后 4 位自助领
+            - generic [ref=e232]: ↓
+            - generic [ref=e233]:
+              - strong [ref=e234]: 核销 App · 好运来
+              - text: 扫码 · NFC 刷卡 · 对账
+        - generic [ref=e235]:
+          - generic [ref=e236]:
+            - generic [ref=e237]: ENTERPRISE AI · KNOWLEDGE BASE
+            - heading "企业知识库与内部 AI" [level=3] [ref=e238]
+            - paragraph [ref=e239]: 为企业做知识库私有化部署的实践： 把制度、合同、产品手册、工单记录这些散落各处的文档， 变成可检索的知识库、能自己找依据回答问题的助手、可自维护的内部 Wiki。 关注点不在"能不能跑起来"，而在部署进企业内网之后—— 文档解析与分块质量、检索命中率、权限边界， 以及和企业现有系统（PMS / OA / 工单）到底该接到哪一层。
+            - generic [ref=e240]:
+              - generic [ref=e241]: RAG
+              - generic [ref=e242]: 企业知识库
+              - generic [ref=e243]: 私有化部署
+              - generic [ref=e244]: 文档解析
+              - generic [ref=e245]: Embedding
+              - generic [ref=e246]: MCP
+              - generic [ref=e247]: Docker
+              - generic [ref=e248]: 企业 AI
+          - generic [aria-hidden] [ref=e249]:
+            - generic [ref=e250]:
+              - strong [ref=e251]: 企业文档
+              - text: 制度 · 合同 · 手册 · 工单
+            - generic [ref=e252]: ↓
+            - generic [ref=e253]:
+              - strong [ref=e254]: 解析 · 分块 · 向量化
+              - text: 内网自建 · 数据不出企业
+            - generic [ref=e255]: ↓
+            - generic [ref=e256]:
+              - strong [ref=e257]: 企业 AI 应用
+              - text: RAG 问答 · Agent · 内部 Wiki
+  - contentinfo [ref=e258]:
+    - generic [ref=e259]: © 2026 Felix 仅个人技术项目演示，不提供商用服务
+    - link "京ICP备2026071282号-1" [ref=e262] [cursor=pointer]:
+      - /url: https://beian.miit.gov.cn/
