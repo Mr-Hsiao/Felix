@@ -1,5 +1,0 @@
-2026/11/15-11:30:38.146 aafc Creating DB D:\HotelCoupon\html\_audit\edge-profile-m-9532\Default\EdgeCoupons/coupons_data.db since it was missing.
-2026/11/15-11:30:38.156 aafc Reusing MANIFEST D:\HotelCoupon\html\_audit\edge-profile-m-9532\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
-2026/11/15-11:30:38.815 434c Level-0 table #5: started
-2026/11/15-11:30:38.819 434c Level-0 table #5: 683273 bytes OK
-2026/11/15-11:30:38.821 434c Delete type=0 #3
