@@ -1,3 +1,11 @@
+---
+title: AI 能不能真正操作 PMS？
+date: 2026-08-20
+tags: AI, Agent
+summary: 把 AI Agent 丢进 PMS 试了一周，它能下单、能改价，但有一个环节永远卡住——审批流。原因不是技术。
+wechat: https://mp.weixin.qq.com/
+---
+
 # AI 能不能真正操作 PMS？
 
 把 AI Agent 丢进 PMS 试了一周，能做很多事，但有一个环节永远卡住。

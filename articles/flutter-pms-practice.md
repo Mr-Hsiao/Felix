@@ -1,3 +1,11 @@
+---
+title: Flutter 做桌面 PMS 的一些实践
+date: 2026-09-02
+tags: Flutter, 桌面端
+summary: 从 Electron 切到 Flutter 桌面端一年后，把坑整理成清单：窗口句柄、键盘焦点、输入法位置、HiDPI 适配。
+wechat: https://mp.weixin.qq.com/
+---
+
 # Flutter 做桌面 PMS 的一些实践
 
 从 Electron 切到 Flutter 桌面端一年了，把踩过的坑整理一下。
