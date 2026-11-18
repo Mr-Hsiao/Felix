@@ -119,12 +119,13 @@ nav.scrolled{
   color:var(--muted);font-weight:300;
 }
 .hero-meta{
-  margin-top:2.1rem;display:flex;flex-wrap:wrap;gap:1.8rem 2.4rem;align-items:flex-end;
+  margin-top:2.1rem;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1.15rem 1.25rem;align-items:start;
   border-top:1px solid var(--line);padding-top:1.25rem;max-width:46rem;
 }
-.hero-meta div{min-width:6.5rem}
+.hero-meta > div{min-width:0}
 .hero-meta .num{font-family:var(--serif);font-size:1.45rem;font-weight:600;line-height:1}
-.hero-meta .lab{font-size:.72rem;letter-spacing:.18em;color:var(--muted);margin-top:.4rem;text-transform:uppercase}
+.hero-meta .lab{font-size:.72rem;letter-spacing:.12em;color:var(--muted);margin-top:.4rem;text-transform:uppercase}
 .scroll-cue{
   margin-top:2.1rem;display:inline-flex;align-items:center;gap:.9rem;
   font-size:.72rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;text-decoration:none;
@@ -473,14 +474,16 @@ footer{
   .menu-btn{display:block}
   .hero{padding-top:6.1rem;padding-bottom:2.4rem;grid-template-columns:1fr;grid-template-areas:"main" "card" "foot"}
   .hero h1{font-size:clamp(1.7rem,7vw,2.15rem);line-height:1.32}
+  .hero-meta{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.15rem 1rem;max-width:none}
+  .hero-meta .lab{letter-spacing:.08em}
   .hero-kicker{letter-spacing:.16em;font-size:.68rem;flex-wrap:wrap;row-gap:.4rem}
   .visit-card{justify-self:start;transform:none;margin:1.6rem 0 .2rem}
   .visit-card:hover{transform:none}
   .svc-grid,.steps{grid-template-columns:1fr}
   .svc:last-child,.svc:nth-child(2){border-right:0}
-  .note{grid-template-columns:4.6rem minmax(0,1fr);gap:.35rem 1rem}
+  .note{grid-template-columns:auto minmax(0,1fr);gap:.7rem 1rem;align-items:baseline;padding:1.35rem 0}
   .note .cat{grid-column:2}
-  .note h3,.note .summary{grid-column:1 / -1}
+  .note > div{grid-column:1 / -1;min-width:0}
   .note .go{display:none}
   .sec-head .tail{margin-left:0}
   .contact-item{flex-direction:column;align-items:flex-start;gap:.2rem}
@@ -527,7 +530,7 @@ footer{
 <header class="hero" id="top">
   <div class="hero-main">
     <p class="hero-kicker reveal">Hotel · Digitalization · PMS · AI</p>
-    <h1 class="reveal">真实酒店现场里的数字化，<br><span class="accent">以及正在做的事。</span></h1>
+    <h1 class="reveal"><span class="accent">AI时代酒店信息化的演进过程</span></h1>
     <p class="hero-sub reveal">从酒店一线到 PMS 实施，再到产品设计和软件开发。现在关心的是：AI 怎样真正走进酒店业务，而不是停在一场演示里。</p>
   </div>
   <aside class="visit-card reveal" aria-label="个人名片">
@@ -644,7 +647,7 @@ footer{
         <h3 class="proj-name">PMS</h3>
         <p class="proj-desc">面向酒店业务的新一代 PMS。从传统酒店管理系统出发，探索 SaaS、开放 API、数据服务、AI Agent 与酒店业务系统之间的结合。</p>
         <div class="proj-tags">
-          <i>Hotel PMS</i><i>SaaS</i><i>Flutter</i><i>Spring Boot</i><i>PostgreSQL</i><i>REST API</i><i>AI Agent</i><i>MCP</i>
+          <i>Hotel PMS</i><i>SaaS</i><i>AI Agent</i><i>MCP</i>
         </div>
       </div>
       <div class="flow-panel" aria-hidden="true">
@@ -662,7 +665,7 @@ footer{
         <h3 class="proj-name">好运来卡券管理系统</h3>
         <p class="proj-desc">把房券、早餐券、房型升级券、代金券，从发券、客人自助领券、前台核销到财务对账串成一条链。管理后台、核销 App、客人领券 H5 共用同一套数据。</p>
         <div class="proj-tags">
-          <i>卡券中台</i><i>Spring Boot</i><i>PostgreSQL</i><i>Android</i><i>NFC 核销</i><i>H5 领券</i><i>REST API</i><i>报表对账</i>
+          <i>卡券中台</i><i>NFC 核销</i><i>H5 领券</i><i>报表对账</i>
         </div>
         <a class="project-link" href="/admin/" target="_blank" rel="noopener">进入系统 <span>→</span></a>
       </div>
@@ -737,7 +740,7 @@ footer{
 <section class="contact" id="contact">
   <div class="reveal">
     <div class="sec-index">06 / COLLAB</div>
-    <h2>接受新项目合作。<br><span class="accent">写下来，就会发到我的邮箱。</span></h2>
+    <h3>接受新项目合作。<br><span class="accent">写下来，就会发到我的邮箱。</span></h3>
     <form class="collab-form" id="collabForm">
       <label class="hp">不要填写<input name="_honey" tabindex="-1" autocomplete="off"></label>
       <label>
