@@ -25,6 +25,7 @@
   --sans:"Noto Sans SC",sans-serif;
   --page:1180px;
   --gutter:clamp(1.25rem,5vw,5rem);
+  --card-pad:clamp(1.8rem,4vw,3rem);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -197,15 +198,23 @@ section{padding:clamp(5rem,10vw,8.5rem) max(var(--gutter),calc((100% - var(--pag
 .sec-head .tail{color:var(--muted);font-size:.95rem;font-weight:300;max-width:26em;margin-left:auto}
 
 .services,.about{
-  --inset:1.35rem;
   background-color:var(--cream);
   background-repeat:no-repeat;
   background-position:center;
   background-size:min(100% - 2 * var(--gutter),var(--page)) 100%;
+}
+.services{
+  --inset:1.35rem;
   padding-top:clamp(2.4rem,4.2vw,3.4rem);
   padding-bottom:clamp(2.4rem,4.2vw,3.4rem);
   padding-left:calc(max(var(--gutter),calc((100% - var(--page)) / 2)) + var(--inset));
   padding-right:calc(max(var(--gutter),calc((100% - var(--page)) / 2)) + var(--inset));
+}
+.about{
+  padding-top:var(--card-pad);
+  padding-bottom:var(--card-pad);
+  padding-left:calc(max(var(--gutter),calc((100% - var(--page)) / 2)) + var(--card-pad));
+  padding-right:calc(max(var(--gutter),calc((100% - var(--page)) / 2)) + var(--card-pad));
 }
 .services{background-image:linear-gradient(var(--green),var(--green));color:var(--cream);position:relative;overflow:hidden}
 .services .sec-index{color:var(--brass-soft)}
@@ -271,7 +280,7 @@ section{padding:clamp(5rem,10vw,8.5rem) max(var(--gutter),calc((100% - var(--pag
 .project-list{display:grid;gap:1.6rem}
 .proj-card{
   display:grid;grid-template-columns:minmax(0,1.25fr) minmax(220px,.75fr);gap:2.4rem;
-  background:var(--ink);color:var(--cream);padding:clamp(1.8rem,4vw,3rem);
+  background:var(--ink);color:var(--cream);padding:var(--card-pad);
   position:relative;overflow:hidden;
   transition:transform .45s cubic-bezier(.22,1,.36,1);
 }
